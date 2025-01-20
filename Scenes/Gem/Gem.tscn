@@ -16,3 +16,5 @@ texture = ExtResource("1_wgtom")
 position = Vector2(-4.76837e-07, 0)
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_t2bx2")
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
