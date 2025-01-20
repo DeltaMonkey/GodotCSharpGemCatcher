@@ -18,3 +18,5 @@ position = Vector2(576, 576)
 
 [node name="Gem" parent="." instance=ExtResource("4_yn626")]
 position = Vector2(381, 158)
+
+[connection signal="OnScored" from="Gem" to="." method="OnScored"]
