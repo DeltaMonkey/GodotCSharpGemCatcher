@@ -3,7 +3,11 @@ using System;
 
 public partial class Game : Node2D
 {
+    private const double GEM_MARGIN = 50.0; 
+    
     [Export] private Gem _gem;
+    [Export] private PackedScene _gemScene;
+    [Export] private Timer _spawnTimer;
     //[Export] private NodePath _gemPath; // Game/Gem
     //private Gem _gem;
 
@@ -11,7 +15,26 @@ public partial class Game : Node2D
     {
         //Gem gem = GetNode<Gem>("Gem");
         //_gem = GetNode<Gem>(_gemPath);
-        _gem.OnScored += OnScored;
+        //_gem.OnScored += OnScored;
+        _spawnTimer.Timeout += SpawnGem;
+    }
+
+    public override void _Process(double delta)
+    {
+    }
+
+    private void SpawnGem() 
+    {
+        Rect2 vpr = GetViewportRect();
+        Gem gem = (Gem)_gemScene.Instantiate();
+        AddChild(gem); 
+
+        float rX = (float)GD.RandRange(
+            vpr.Position.X + GEM_MARGIN, vpr.End.X - GEM_MARGIN
+        );
+
+        gem.Position = new Vector2(rX, -100);
+        gem.OnScored += OnScored;
     }
 
     private void OnScored()
