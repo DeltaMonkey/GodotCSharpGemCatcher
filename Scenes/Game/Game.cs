@@ -4,7 +4,7 @@ using System;
 public partial class Game : Node2D
 {
     private const double GEM_MARGIN = 50.0; 
-    
+
     [Export] private Gem _gem;
     [Export] private PackedScene _gemScene;
     [Export] private Timer _spawnTimer;
@@ -35,10 +35,16 @@ public partial class Game : Node2D
 
         gem.Position = new Vector2(rX, -100);
         gem.OnScored += OnScored;
+        gem.OnGemOffScreen += GameOver;
     }
 
     private void OnScored()
     {
         GD.Print("OnScored triggered!");
+    }
+
+    private void GameOver()
+    {
+        GD.Print("GameOver");
     }
 }
