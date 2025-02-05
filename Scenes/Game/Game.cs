@@ -8,8 +8,11 @@ public partial class Game : Node2D
     [Export] private Gem _gem;
     [Export] private PackedScene _gemScene;
     [Export] private Timer _spawnTimer;
+    [Export] private Label _scoreLabel;
     //[Export] private NodePath _gemPath; // Game/Gem
     //private Gem _gem;
+
+    private int _score = 0;
 
     public override void _Ready()
     {
@@ -41,6 +44,8 @@ public partial class Game : Node2D
     private void OnScored()
     {
         GD.Print("OnScored triggered!");
+        _score++;
+        _scoreLabel.Text = $"{_score:0000}";
     }
 
     private void GameOver()
