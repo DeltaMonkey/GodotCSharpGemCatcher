@@ -10,6 +10,10 @@ public partial class Game : Node2D
     [Export] private Timer _spawnTimer;
     [Export] private Label _scoreLabel;
     [Export] private AudioStreamPlayer _music;
+    [Export] private AudioStreamPlayer2D _effects;
+    //[Export] private AudioStream _explodeSound;
+    private static readonly AudioStream EXPLODE_SOUND = 
+                GD.Load<AudioStream>("res://Assets/explode.wav");
     //[Export] private NodePath _gemPath; // Game/Gem
     //private Gem _gem;
 
@@ -47,6 +51,7 @@ public partial class Game : Node2D
         GD.Print("OnScored triggered!");
         _score++;
         _scoreLabel.Text = $"{_score:0000}";
+        _effects.Play();
     }
 
     private void GameOver()
@@ -58,5 +63,9 @@ public partial class Game : Node2D
         }
         _spawnTimer.Stop();
         _music.Stop();
+
+        _effects.Stop();
+        _effects.Stream = EXPLODE_SOUND;
+        _effects.Play();
     }
 }
